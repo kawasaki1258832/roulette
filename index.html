@@ -18,7 +18,7 @@
 
     h1 {
       color: #ff4081;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 20px;
     }
 
@@ -31,16 +31,16 @@
 
     input {
       padding: 10px;
-      font-size: 1rem;
+      font-size: 1.2rem;
       border-radius: 10px;
       border: 2px solid #ff80ab;
-      width: 100px;
+      width: 120px;
       text-align: center;
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 1rem;
+      padding: 15px 30px;
+      font-size: 1.2rem;
       background-color: #ff80ab;
       color: white;
       border: none;
@@ -54,16 +54,16 @@
     }
 
     .roulette {
-      margin-top: 20px;
-      font-size: 3rem;
-      color: #ff4081;
+      margin-top: 30px;
+      font-size: 10rem;
+      color: #000000;
       font-weight: bold;
       animation: spin 1s ease-in-out;
     }
 
     .history {
-      margin-top: 10px;
-      font-size: 1.2rem;
+      margin-top: 20px;
+      font-size: 1.5rem;
       color: #555;
     }
 
@@ -78,10 +78,10 @@
   <p>数字の範囲を入力してください：</p>
   <div class="input-group">
     <label for="minInput">最小：</label>
-    <input type="number" id="minInput" placeholder="例: 1">
+    <input type="number" id="minInput" placeholder="例: 1" value="1">
     <span>～</span>
     <label for="maxInput">最大：</label>
-    <input type="number" id="maxInput" placeholder="例: 30">
+    <input type="number" id="maxInput" placeholder="例: 30" value="30">
   </div>
   <div>
     <button onclick="spinRoulette()">回す！</button>
