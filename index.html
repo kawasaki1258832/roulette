@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数字ルーレット</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #ffeaea;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #ff4081;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 2px solid #ff80ab;
+      width: 100px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff80ab;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    button:hover {
+      background-color: #ff4081;
+    }
+
+    .roulette {
+      margin-top: 20px;
+      font-size: 3rem;
+      color: #ff4081;
+      font-weight: bold;
+      animation: spin 1s ease-in-out;
+    }
+
+    .history {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); opacity: 0; }
+      100% { transform: rotate(360deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>数字ルーレット🎯</h1>
+  <p>数字の範囲を入力してください：</p>
+  <div class="input-group">
+    <label for="minInput">最小：</label>
+    <input type="number" id="minInput" placeholder="例: 1">
+    <span>～</span>
+    <label for="maxInput">最大：</label>
+    <input type="number" id="maxInput" placeholder="例: 30">
+  </div>
+  <div>
+    <button onclick="spinRoulette()">回す！</button>
+    <button onclick="resetHistory()">ルーレットをリセットする</button>
+  </div>
+  <div id="result" class="roulette"></div>
+  <div id="history" class="history"></div>
+
+  <script>
+    let remainingNumbers = [];
+    let history = [];
+
+    function initializeRange(min, max) {
+      remainingNumbers = [];
+      for (let i = min; i <= max; i++) {
+        remainingNumbers.push(i);
+      }
+    }
+
+    function spinRoulette() {
+      const minInput = document.getElementById('minInput');
+      const maxInput = document.getElementById('maxInput');
+      const min = parseInt(minInput.value);
+      const max = parseInt(maxInput.value);
+
+      if (isNaN(min) || isNaN(max) || min > max) {
+        alert('有効な最小値と最大値を入力してください');
+        return;
+      }
+
+      if (remainingNumbers.length === 0) {
+        initializeRange(min, max);
+        history = [];
+      }
+
+      if (remainingNumbers.length === 0) {
+        alert('すべての数字が出ました。リセットしてください。');
+        return;
+      }
+
+      const index = Math.floor(Math.random() * remainingNumbers.length);
+      const result = remainingNumbers.splice(index, 1)[0];
+      history.push(result);
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = result;
+      resultDiv.style.animation = 'none';
+      resultDiv.offsetHeight;
+      resultDiv.style.animation = null;
+
+      updateHistory();
+    }
+
+    function updateHistory() {
+      const historyDiv = document.getElementById('history');
+      historyDiv.textContent = `これまでに出た数字: ${history.join(', ')}`;
+    }
+
+    function resetHistory() {
+      history = [];
+      remainingNumbers = [];
+      document.getElementById('result').textContent = '';
+      document.getElementById('history').textContent = '';
+      document.getElementById('minInput').value = '';
+      document.getElementById('maxInput').value = '';
+    }
+  </script>
+</body>
+</html>
